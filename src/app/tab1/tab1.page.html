@@ -1,18 +1,63 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Hello,{{username}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header> 
+  <h1>Attack Records</h1>
+  <ion-list>
+    <ion-item *ngFor="let item of records">
+      <h2>{{item.attackId}}</h2>
+    </ion-item>
+  </ion-list>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+
+  <ion-button id="open-modal" expand="block" (click)="setOpen(true)">ADD RECORD</ion-button>
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)"  [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Attack Record</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <form (ngSubmit)="onSubmit()" [formGroup]="myForm" >
+            <ion-list>
+              <ion-item>
+                <ion-label stacked>Attack Time:</ion-label>
+                <ion-datetime-button datetime="datetime"></ion-datetime-button>
+                <ion-modal [keepContentsMounted]="true">
+                  <ng-template>
+                    <ion-datetime id="datetime" 
+                    formControlName="attackDate"></ion-datetime>
+                  </ng-template>
+                </ion-modal>
+              </ion-item>
+              <ion-item>
+                <ion-label stacked>Location:</ion-label>
+                <ion-radio-group formControlName="location">
+                  <ion-radio  value="'INSIDE'">INSIDE</ion-radio>
+                  <ion-radio  value="'OUTSIDE'">OUTSIDE</ion-radio>
+                </ion-radio-group>
+              </ion-item>
+            </ion-list>
+        
+            <ion-button  id="formSubBtn" type="submit">Save</ion-button>
+
+            <ion-alert
+            trigger="formSubBtn"
+            message="Add Record Success!"
+            [buttons]="alertButtons"
+            ></ion-alert>
+
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+            
+          </form>   
+        </ion-card-content>
+      </ion-card>
+</ng-template>
+</ion-modal>
+ 
 </ion-content>
