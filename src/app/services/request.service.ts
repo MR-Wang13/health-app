@@ -10,11 +10,20 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class RequestService {
+  
 
   private paticipantsPostUrl = "/api/participants"
 
 
   private recordsPostUrl = "/api/attacks"
+
+  private getRecordsUrl = "/api/attacks/participant/"
+
+  private getChartDataUrl = "/api/attacks/getChartData/"
+
+  
+  public result:any ;
+
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'
@@ -37,12 +46,18 @@ export class RequestService {
   }
 
 
-  addRecords(form:any){
+  async addRecords(form:any){
     
-    this.http.post(this.recordsPostUrl,JSON.stringify(form),this.httpOptions).subscribe(
-      (response:any )=>(
-        console.log('add record success!')
-      )
-    );
+    return await this.http.post(this.recordsPostUrl,JSON.stringify(form),this.httpOptions).toPromise();
   }
+
+  async getRecords(id:any){
+    return await this.http.get(this.getRecordsUrl+id).toPromise();
+    
+  }
+
+  async getRecordsData(participantId: any) {
+    return await this.http.get(this.getChartDataUrl+participantId).toPromise();
+  }
+ 
 }

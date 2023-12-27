@@ -14,11 +14,12 @@ import { HttpClientModule } from '@angular/common/http';
 import {StorageService} from './services/storage.service';
 
 import {RequestService} from './services/request.service';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,FormsModule,ReactiveFormsModule,HttpClientModule, NgChartsModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },StorageService,RequestService],
   bootstrap: [AppComponent],
 })

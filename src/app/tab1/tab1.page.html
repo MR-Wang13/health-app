@@ -7,10 +7,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Attack Records</h1>
+  <ion-title>
+    Attack Records
+  </ion-title>
   <ion-list>
-    <ion-item *ngFor="let item of records">
-      <h2>{{item.attackId}}</h2>
+    <ion-item (click)="clickItem(item)" *ngFor="let item of records">
+      <h5>Record--{{item.attackId}}</h5>
     </ion-item>
   </ion-list>
 
