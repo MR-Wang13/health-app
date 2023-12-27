@@ -11,15 +11,16 @@ import { StorageService } from './storage.service';
 })
 export class RequestService {
   
+  private host = "http://my-springboot-env.eba-bkzikp3p.us-east-1.elasticbeanstalk.com";
+ 
+  private paticipantsPostUrl = this.host + "/api/participants"
 
-  private paticipantsPostUrl = "/api/participants"
 
+  private recordsPostUrl = this.host +"/api/attacks"
 
-  private recordsPostUrl = "/api/attacks"
+  private getRecordsUrl = this.host +"/api/attacks/participant/today/"
 
-  private getRecordsUrl = "/api/attacks/participant/"
-
-  private getChartDataUrl = "/api/attacks/getChartData/"
+  private getChartDataUrl = this.host +"/api/attacks/getChartData/"
 
   
   public result:any ;

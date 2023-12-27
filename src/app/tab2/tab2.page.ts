@@ -14,7 +14,8 @@ export class Tab2Page implements OnInit{
 
   participantId =  this.storage.get("participantId");
 
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
+  @ViewChild(BaseChartDirective) 
+  public chart?: BaseChartDirective;
 
   public recordData: ChartData<'line'> = {
     labels: ['2023-12-01'],
@@ -35,14 +36,32 @@ export class Tab2Page implements OnInit{
   constructor( private storage:StorageService,
     private request:RequestService) {}
   
+  ionViewWillEnter(){
+    this.loadData().then(data=>{
+      console.log(data);
+      this.recordData.labels = data.days;
+      this.recordData.datasets[0].data = data.nums;
+      this.chart?.chart?.update();
+    });
+    this.chart?.chart?.update();
+  }
+  ionViewDidLoad(){
+    this.loadData().then(data=>{
+      console.log(data);
+      this.recordData.labels = data.days;
+      this.recordData.datasets[0].data = data.nums;
+      this.chart?.chart?.update();
+    });
+    this.chart?.chart?.update();
+}
   ngOnInit(){
     this.loadData().then(data=>{
       console.log(data);
       this.recordData.labels = data.days;
       this.recordData.datasets[0].data = data.nums;
-      
+      this.chart?.chart?.update();
     });
-    this.chart?.update;
+    this.chart?.chart?.update();
   }
 
   async loadData(){

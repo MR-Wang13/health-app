@@ -1,0 +1,6 @@
+2023-12-27 12:50:50.239  7402-7402  Capacitor/Console       io.ionic.starter
+E  File: http://localhost/tabs/tab1?deviceUuid=07c8082a99a18460&username=ttt -
+
+Line 0 - Msg: Access to XMLHttpRequest at 'http://my-springboot-env.eba-bkzikp3p.us-east-1.elasticbeanstalk.com/api/attacks'
+from origin 'http://localhost' has been blocked by CORS policy: Response to preflight request doesn't pass access control check:
+No 'Access-Control-Allow-Origin' header is present on the requested resource.

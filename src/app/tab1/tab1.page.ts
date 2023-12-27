@@ -24,7 +24,6 @@ export class Tab1Page implements OnInit {
 
   public myForm : FormGroup;
 
-  private getRecordsUrl = "/api/attacks/participant/"
 
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
@@ -37,7 +36,7 @@ export class Tab1Page implements OnInit {
     location: '',
     attackDate: ''
   }
-  public records:any =[{attackId:'1',participantId:117,location:'INSIDE',attackDate:''}];
+  public records:any =[];
 
 
   constructor(private activatedRoute :ActivatedRoute,
@@ -48,7 +47,7 @@ export class Tab1Page implements OnInit {
     this.myForm = this.formBuilder.group({
       attackId: [''],
       participantId: storage.get("participantId"),
-      location: [''],
+      location: "'INSIDE'",
       attackDate: ['']
     });
   }
@@ -79,7 +78,7 @@ export class Tab1Page implements OnInit {
       attackDate: (new Date()).toJSON(),
       attackId: '',
       participantId: this.storage.get("participantId"),
-      location: [''],
+      location: "'INSIDE'",
     });
 }
 
@@ -124,7 +123,10 @@ export class Tab1Page implements OnInit {
 
   async addRecords(){
     console.log("add record forum---start");
-    console.log(this.myForm);
+    console.log(this.myForm.value);
+
+    console.log(this.myForm.valid);
+    
     let data = await this.request.addRecords(this.myForm.value);
     console.log("add record forum---over");
 

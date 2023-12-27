@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Health APP',
   webDir: 'www',
   server: {
-    androidScheme: 'https'
+    cleartext: true
   }
 };
 

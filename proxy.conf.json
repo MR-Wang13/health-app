@@ -1,6 +1,6 @@
 {
     "/api": {
-    "target": "http://localhost:5000",
+    "target": "http://my-springboot-env.eba-bkzikp3p.us-east-1.elasticbeanstalk.com/",
     "secure": false
     }
 }
