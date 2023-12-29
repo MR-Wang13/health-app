@@ -38,19 +38,30 @@ export class Tab2Page implements OnInit{
   
   ionViewWillEnter(){
     this.loadData();
+    this.chart?.chart?.update();
+
   }
   ionViewDidLoad(){
     this.loadData();
+    this.chart?.chart?.update();
+
 }
   ngOnInit(){
+
     this.loadData();
+    this.chart?.chart?.update();
+
   }
 
   loadData(){
+    console.log("load bar data")
+    this.participantId =  this.storage.get("participantId");
     this.request.getRecordsData(this.participantId).subscribe(data=>{
       this.recordData.labels = data.days;
       this.recordData.datasets[0].data = data.nums;
       this.chart?.chart?.update();
     });
+    this.chart?.chart?.update();
+
   }
 }
