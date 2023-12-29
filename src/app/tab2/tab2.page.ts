@@ -20,7 +20,7 @@ export class Tab2Page implements OnInit{
   public recordData: ChartData<'line'> = {
     labels: ['2023-12-01'],
     datasets: [
-      { label: 'Records Number', data: [1000], tension: 0.5 }
+      { label: 'Records Number', data: [1000], tension: 1 }
     ],
   };
 
