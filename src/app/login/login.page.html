@@ -1,4 +1,4 @@
-<div style="height: 200px;text-align:center;font-size: 50px;line-height: 200px;">Health APP</div>
+<div class="app-title">Health APP</div>
 <ion-content>
   <ion-list>
     <ion-item>
@@ -8,5 +8,13 @@
   </ion-list>
   <div class="login-btn-con">
     <ion-button expand="block"  (click)="loginBtnClick()">Enter</ion-button>
+    <div *ngIf="showError"  class="error-message">
+      Username is required.
+    </div>
+
+    <div *ngIf="usernameTaken"  class="error-message">
+      Username is already taken.
+    </div>
   </div>
+ 
 </ion-content>

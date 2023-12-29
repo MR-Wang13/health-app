@@ -1,9 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-avatar>
+        <img src="../../assets/icon/userIcon.jpeg">
+      </ion-avatar>
+    </ion-buttons>
     <ion-title>
       Hello,{{username}}
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">Logout</ion-button>
+    </ion-buttons>
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -11,9 +20,14 @@
     Attack Records
   </ion-title>
   <ion-list>
-    <ion-item (click)="clickItem(item)" *ngFor="let item of records">
-      <h5>Record--{{item.attackId}}</h5>
-    </ion-item>
+    <ion-card *ngFor="let item of records" (click)="clickItem(item)">
+      <ion-card-header>
+        <ion-card-title>Record: {{item.attackId}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        More details about the record...
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 
 
@@ -28,6 +42,7 @@
           <form (ngSubmit)="onSubmit()" [formGroup]="myForm" >
             <ion-list>
               <ion-item>
+                <ion-icon name="calendar" slot="start"></ion-icon>
                 <ion-label stacked>Attack Time:</ion-label>
                 <ion-datetime-button datetime="datetime"></ion-datetime-button>
                 <ion-modal [keepContentsMounted]="true">
@@ -38,6 +53,7 @@
                 </ion-modal>
               </ion-item>
               <ion-item>
+                <ion-icon name="location" slot="start"></ion-icon>
                 <ion-label stacked>Location:</ion-label>
                 <ion-radio-group formControlName="location">
                   <ion-radio  value="'INSIDE'">INSIDE</ion-radio>
@@ -54,7 +70,7 @@
             [buttons]="alertButtons"
             ></ion-alert>
 
-            <ion-button (click)="setOpen(false)">Close</ion-button>
+            <ion-button  color="medium"  (click)="setOpen(false)">Close</ion-button>
             
           </form>   
         </ion-card-content>

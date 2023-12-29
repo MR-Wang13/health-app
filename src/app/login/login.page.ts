@@ -24,8 +24,9 @@ export class LoginPage implements OnInit {
 
  }
    
+ showError: boolean = false; 
+ usernameTaken: boolean = false;
 
-  public participantId:string ="";
 
 
   constructor(public router : Router,
@@ -35,32 +36,42 @@ export class LoginPage implements OnInit {
 
    deviceId: any ;
 
-   ionViewWillEnter(){
-    const participantId = this.storage.get("participantId");
-
-    console.log("participantId---"+participantId);
-    if(participantId!="" && participantId!=null){
-      this.router.navigate(['/tabs/tab1']);
-    }
+  ionViewWillEnter(){
+    
   } 
   async ngOnInit() {
-    this.deviceId = Device.getId();
-
-    
+    this.deviceId = (await Device.getId()).identifier;  
   }
 
  
-  async loginBtnClick() {
-    console.log((await this.deviceId).identifier);
-    this.user.deviceUuid = (await this.deviceId).identifier;
-    this.storage.set("username",this.user.username); 
-    this.request.addParicipants(this.user);
-    this.router.navigate(['/tabs/tab1'],{
-      queryParams:{ 
-        "deviceUuid": (await this.deviceId).identifier,
-        "username": this.user.username
-      }
-    });
+  loginBtnClick() {
+    this.showError = false;
+    this.usernameTaken = false;
 
+    if (this.user.username.trim() === '') {
+      this.showError = true;
+      return;
+    }
+    console.log(this.deviceId);
+    this.user.deviceUuid = this.deviceId;
+    this.storage.set("username",this.user.username); 
+    this.request.addParicipants(this.user).subscribe(
+      (response:any)=>{
+        console.log(response);
+        if (response.taken) {
+          this.usernameTaken = true;
+        } else {
+        this.storage.set("participantId",response.participantId);
+        this.router.navigate(['/tabs/tab1'],{
+          queryParams:{ 
+            "deviceUuid": this.deviceId,
+            "username": this.user.username
+          }
+        });
+        }
+        
+      }
+    );
+    
   } 
 }

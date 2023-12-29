@@ -4,13 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 import { StorageService } from './storage.service';
+import { Observable } from 'rxjs';
 @Injectable({providedIn: 'root'})
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
-  
+  //http://my-springboot-env.eba-bkzikp3p.us-east-1.elasticbeanstalk.com
   private host = "http://my-springboot-env.eba-bkzikp3p.us-east-1.elasticbeanstalk.com";
  
   private paticipantsPostUrl = this.host + "/api/participants"
@@ -36,29 +37,26 @@ export class RequestService {
     ) { }
 
   
-  addParicipants(user:any){
+  addParicipants(user:any): Observable<any>{
     
-
-    this.http.post(this.paticipantsPostUrl,JSON.stringify(user),this.httpOptions).subscribe(
-      (response:any )=>(
-        this.storage.set("participantId",response.participantId)
-      )
-    );
+    return this.http.post(this.paticipantsPostUrl,JSON.stringify(user),this.httpOptions);
   }
 
 
-  async addRecords(form:any){
+  addRecords(form:any) : Observable<any>{
     
-    return await this.http.post(this.recordsPostUrl,JSON.stringify(form),this.httpOptions).toPromise();
+    return this.http.post(this.recordsPostUrl,JSON.stringify(form),this.httpOptions);
   }
 
-  async getRecords(id:any){
-    return await this.http.get(this.getRecordsUrl+id).toPromise();
-    
+
+  
+  getRecords(id:any): Observable<any> {
+    return this.http.get(this.getRecordsUrl+id);
   }
 
-  async getRecordsData(participantId: any) {
-    return await this.http.get(this.getChartDataUrl+participantId).toPromise();
+
+  getRecordsData(participantId: any) : Observable<any> {
+    return this.http.get(this.getChartDataUrl+participantId);
   }
  
 }

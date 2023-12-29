@@ -5,6 +5,7 @@ import { StorageService } from '../services/storage.service';
 import { RequestService } from '../services/request.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { IonList } from '@ionic/angular';
+import {Router} from '@angular/router';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -39,11 +40,11 @@ export class Tab1Page implements OnInit {
   public records:any =[];
 
 
-  constructor(private activatedRoute :ActivatedRoute,
+  constructor(
     private formBuilder: FormBuilder,
     private storage:StorageService,
     private request:RequestService,
-    private http:HttpClient) {
+    public router : Router) {
     this.myForm = this.formBuilder.group({
       attackId: [''],
       participantId: storage.get("participantId"),
@@ -53,20 +54,18 @@ export class Tab1Page implements OnInit {
   }
  
   ngOnInit() {
-    this.refreshForm();
-    this.loadData().then(data=>{
-      console.log(data);
-      this.records = data;
-    });
+    this.loadData();
   }
 
 
-  async loadData(){
+   loadData(){
+    this.refreshForm();
     console.log('loadData');
     this.username = this.storage.get("username");
     const participantId =  this.storage.get("participantId")
-    let data = await this.request.getRecords(participantId);
-    return data;
+    this.request.getRecords(participantId).subscribe(data=>{
+      this.records = data;
+    });
   }
 
   ionViewWillEnter() {
@@ -109,27 +108,26 @@ export class Tab1Page implements OnInit {
   async onSubmit(){
     
     this.isModalOpen = !this.isModalOpen;
-    this.addRecords().then(data=>{
-        this.loadData().then(data=>{
-          console.log('loadData');
-
-          console.log(data);
-          this.records = data;
-        });
-      }
-    )
+    this.addRecords();
 
   }
 
-  async addRecords(){
+   addRecords(){
     console.log("add record forum---start");
     console.log(this.myForm.value);
 
     console.log(this.myForm.valid);
     
-    let data = await this.request.addRecords(this.myForm.value);
+    this.request.addRecords(this.myForm.value).subscribe(data=>{
+      this.loadData();
+    });
     console.log("add record forum---over");
+  }
 
-    return data;
+  logout() {
+    this.storage.remove('username'); 
+    this.storage.remove('participantId'); 
+
+    this.router.navigateByUrl('/login');
   }
 }

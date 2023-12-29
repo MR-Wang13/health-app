@@ -37,35 +37,20 @@ export class Tab2Page implements OnInit{
     private request:RequestService) {}
   
   ionViewWillEnter(){
-    this.loadData().then(data=>{
-      console.log(data);
-      this.recordData.labels = data.days;
-      this.recordData.datasets[0].data = data.nums;
-      this.chart?.chart?.update();
-    });
-    this.chart?.chart?.update();
+    this.loadData();
   }
   ionViewDidLoad(){
-    this.loadData().then(data=>{
-      console.log(data);
-      this.recordData.labels = data.days;
-      this.recordData.datasets[0].data = data.nums;
-      this.chart?.chart?.update();
-    });
-    this.chart?.chart?.update();
+    this.loadData();
 }
   ngOnInit(){
-    this.loadData().then(data=>{
-      console.log(data);
+    this.loadData();
+  }
+
+  loadData(){
+    this.request.getRecordsData(this.participantId).subscribe(data=>{
       this.recordData.labels = data.days;
       this.recordData.datasets[0].data = data.nums;
       this.chart?.chart?.update();
     });
-    this.chart?.chart?.update();
-  }
-
-  async loadData(){
-    let data:any = await this.request.getRecordsData(this.participantId);
-    return data;
   }
 }
