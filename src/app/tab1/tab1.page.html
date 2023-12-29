@@ -32,7 +32,7 @@
 
 
   <ion-button id="open-modal" expand="block" (click)="setOpen(true)">ADD RECORD</ion-button>
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)"  [isOpen]="isModalOpen">
+  <ion-modal trigger="open-modal"  [isOpen]="isModalOpen">
     <ng-template>
       <ion-card>
         <ion-card-header>
@@ -66,7 +66,7 @@
 
             <ion-alert
             trigger="formSubBtn"
-            message="Add Record Success!"
+            message="Success!"
             [buttons]="alertButtons"
             ></ion-alert>
 

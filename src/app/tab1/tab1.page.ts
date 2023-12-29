@@ -27,7 +27,6 @@ export class Tab1Page implements OnInit {
 
 
 
-  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
 
   isModalOpen = false;
 
@@ -44,7 +43,8 @@ export class Tab1Page implements OnInit {
     private formBuilder: FormBuilder,
     private storage:StorageService,
     private request:RequestService,
-    public router : Router) {
+    public router : Router,
+    public activeRouter : ActivatedRoute) {
     this.myForm = this.formBuilder.group({
       attackId: [''],
       participantId: storage.get("participantId"),
@@ -54,7 +54,10 @@ export class Tab1Page implements OnInit {
   }
  
   ngOnInit() {
-    this.loadData();
+    this.activeRouter.queryParams.subscribe(params => {
+      this.loadData();
+    });
+    
   }
 
 
@@ -70,23 +73,25 @@ export class Tab1Page implements OnInit {
 
   ionViewWillEnter() {
     
+    this.username = this.storage.get("username");
 
   }
+
+  
   refreshForm(){
+    const now = new Date();
+    const timezoneOffsetInHours = now.getTimezoneOffset() / 60;
+    const localISOTimeString = new Date(now.getTime() - timezoneOffsetInHours * 3600 * 1000).toISOString();
+    console.log(localISOTimeString)
     this.myForm.patchValue({
-      attackDate: (new Date()).toJSON(),
+      attackDate: localISOTimeString,
       attackId: '',
       participantId: this.storage.get("participantId"),
       location: "'INSIDE'",
     });
 }
 
-  onWillDismiss(event: Event) {
-    const ev = event as CustomEvent<OverlayEventDetail<string>>;
-    if (ev.detail.role === 'confirm') {
-      this.message = `Hello, ${ev.detail.data}!`;
-    }
-  }
+  
 
   setOpen(isOpen: boolean) {
     this.refreshForm();
