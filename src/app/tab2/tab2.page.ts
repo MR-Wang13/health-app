@@ -16,7 +16,7 @@ export class Tab2Page implements OnInit{
 
   @ViewChild(BaseChartDirective) 
   public chart?: BaseChartDirective;
-
+ 
   public recordData: ChartData<'line'> = {
     labels: ['2023-12-01'],
     datasets: [
