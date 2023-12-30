@@ -93,9 +93,11 @@ export class Tab1Page implements OnInit {
 
   
 
-  setOpen(isOpen: boolean) {
-    this.refreshForm();
+  setOpen(isOpen: boolean,op:string) {
     this.isModalOpen = isOpen;
+    if(op == "add"){
+    this.refreshForm();
+    }
   }
 
   clickItem(item:any){

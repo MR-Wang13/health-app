@@ -31,7 +31,7 @@
   </ion-list>
 
 
-  <ion-button id="open-modal" expand="block" (click)="setOpen(true)">ADD RECORD</ion-button>
+  <ion-button id="open-modal" expand="block" (click)="setOpen(true,'add')">ADD RECORD</ion-button>
   <ion-modal trigger="open-modal"  [isOpen]="isModalOpen">
     <ng-template>
       <ion-card>
@@ -70,7 +70,7 @@
             [buttons]="alertButtons"
             ></ion-alert>
 
-            <ion-button  color="medium"  (click)="setOpen(false)">Close</ion-button>
+            <ion-button  color="medium"  (click)="setOpen(false,'close')">Close</ion-button>
             
           </form>   
         </ion-card-content>

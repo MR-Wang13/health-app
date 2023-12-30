@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class RequestService {
   //http://my-springboot-env.eba-bkzikp3p.us-east-1.elasticbeanstalk.com
-  private host = "http://my-springboot-env.eba-bkzikp3p.us-east-1.elasticbeanstalk.com";
+  private host = "http://localhost:5000";
  
   private paticipantsPostUrl = this.host + "/api/participants"
 
